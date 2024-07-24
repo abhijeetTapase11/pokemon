@@ -1,0 +1,9 @@
+.pokemon-detail {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.pokemon-detail img {
+  width: 200px;
+  height: 200px;
+}
