@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Card from './Card';
 import '../styles/AllCards.css'; 
@@ -6,25 +6,27 @@ import Navbar from './Navbar';
 
 const AllCards = () => {
   const [data, setData] = useState([]);
-  // let data=useRef(null);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
+  const url = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=20&offset=${(page - 1) * 20}`);
+        const response = await axios.get(`${url}?limit=20&offset=${(page - 1) * 20}`);
         const pokemonData = await Promise.all(
           response.data.results.map(async (pokemon) => {
             const details = await axios.get(pokemon.url);
             return details.data;
           })
         );
-        setData(prevData => [...prevData, ...pokemonData]);
+        setData(pokemonData);
         if (pokemonData.length < 20) {
           setHasMore(false);
+        } else {
+          setHasMore(true);
         }
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -33,21 +35,19 @@ const AllCards = () => {
     };
 
     fetchData();
-  }, [page]);
+  }, [page, url]);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight || loading) {
-        return;
-      }
-      if (hasMore) {
-        setPage(prevPage => prevPage + 1);
-      }
-    };
+  const handleNextPage = () => {
+    if (hasMore) {
+      setPage(prevPage => prevPage + 1);
+    }
+  };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [loading, hasMore]);
+  const handlePreviousPage = () => {
+    if (page > 1) {
+      setPage(prevPage => prevPage - 1);
+    }
+  };
 
   return (
     <>
@@ -58,6 +58,11 @@ const AllCards = () => {
         ))}
         {loading && <p>Loading...</p>}
         {!loading && !hasMore && <p>No more data</p>}
+      </div>
+      <div className="pagination">
+        <button onClick={handlePreviousPage} disabled={page === 1}>Previous</button>
+        <span>Page {page}</span>
+        <button onClick={handleNextPage} disabled={!hasMore}>Next</button>
       </div>
     </>
   );
