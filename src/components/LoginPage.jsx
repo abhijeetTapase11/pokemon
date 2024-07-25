@@ -47,7 +47,7 @@ const LoginPage = () => {
           {isSignup ? 'Sign Up' : 'Login'}
         </button>
         <button onClick={() => setIsSignup(!isSignup)}>
-          {isSignup ? 'Switch to Login' : 'Switch to Sign Up'}
+          {isSignup ? 'Already have an account' : 'Create an account'}
         </button>
         {error && <p>{error}</p>}
       </div>

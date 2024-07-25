@@ -35,7 +35,6 @@ const PokemonDetail = () => {
         <img src={pokemonData.sprites.front_default} alt={pokemonData.name} />
         <p>Height: {pokemonData.height}</p>
         <p>Weight: {pokemonData.weight}</p>
-        {/* Add more Pokémon details as needed */}
       </div>
     </>
   );

@@ -6,7 +6,7 @@ export const login = (email, password) => (dispatch, getState) => {
   if (user) {
     dispatch(loginSuccess(user));
   } else {
-    dispatch(loginFailure('Invalid email or password'));
+    dispatch(loginFailure( `You don't have account`));
   }
 };
 

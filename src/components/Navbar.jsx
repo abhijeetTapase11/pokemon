@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../styles/Navbar.css'; // Import your CSS for Navbar
+import '../styles/Navbar.css'; 
 import { useDispatch } from 'react-redux';
 import { logout } from '../features/authSlice';
 

@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import Card from './Card';
-import '../styles/AllCards.css'; // Optional: For additional styling
+import '../styles/AllCards.css'; 
 import Navbar from './Navbar';
 
 const AllCards = () => {
   const [data, setData] = useState([]);
+  // let data=useRef(null);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);

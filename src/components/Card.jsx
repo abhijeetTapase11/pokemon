@@ -8,7 +8,7 @@ const Card = ({ pokemon }) => {
     navigate(`/auth/${username.username}/${pokemon.name}`);
   };
 
-  const imageUrl = pokemon.sprites?.front_default || 'https://via.placeholder.com/100'; // Alternate
+  const imageUrl = pokemon.sprites?.front_default || 'https://via.placeholder.com/100'; 
 
   return (
     <div className="card" onClick={handleClick}>
